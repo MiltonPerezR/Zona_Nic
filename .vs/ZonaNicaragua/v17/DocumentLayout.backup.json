@@ -1,0 +1,139 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\mirut\\OneDrive\\Escritorio\\ZonaNicaragua\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CDFFDD95-0883-40A5-B9BD-C07A92B17C7F}|ZonaNicaragua\\ZonaNicaragua.csproj|c:\\users\\mirut\\onedrive\\escritorio\\zonanicaragua\\zonanicaragua\\addepisodios.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CDFFDD95-0883-40A5-B9BD-C07A92B17C7F}|ZonaNicaragua\\ZonaNicaragua.csproj|solutionrelative:zonanicaragua\\addepisodios.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CDFFDD95-0883-40A5-B9BD-C07A92B17C7F}|ZonaNicaragua\\ZonaNicaragua.csproj|c:\\users\\mirut\\onedrive\\escritorio\\zonanicaragua\\zonanicaragua\\infoserie.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CDFFDD95-0883-40A5-B9BD-C07A92B17C7F}|ZonaNicaragua\\ZonaNicaragua.csproj|solutionrelative:zonanicaragua\\infoserie.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CDFFDD95-0883-40A5-B9BD-C07A92B17C7F}|ZonaNicaragua\\ZonaNicaragua.csproj|c:\\users\\mirut\\onedrive\\escritorio\\zonanicaragua\\zonanicaragua\\site.master.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CDFFDD95-0883-40A5-B9BD-C07A92B17C7F}|ZonaNicaragua\\ZonaNicaragua.csproj|solutionrelative:zonanicaragua\\site.master.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CDFFDD95-0883-40A5-B9BD-C07A92B17C7F}|ZonaNicaragua\\ZonaNicaragua.csproj|c:\\users\\mirut\\onedrive\\escritorio\\zonanicaragua\\zonanicaragua\\addpeliculas.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CDFFDD95-0883-40A5-B9BD-C07A92B17C7F}|ZonaNicaragua\\ZonaNicaragua.csproj|solutionrelative:zonanicaragua\\addpeliculas.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CDFFDD95-0883-40A5-B9BD-C07A92B17C7F}|ZonaNicaragua\\ZonaNicaragua.csproj|c:\\users\\mirut\\onedrive\\escritorio\\zonanicaragua\\zonanicaragua\\site.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}",
+      "RelativeMoniker": "D:0:0:{CDFFDD95-0883-40A5-B9BD-C07A92B17C7F}|ZonaNicaragua\\ZonaNicaragua.csproj|solutionrelative:zonanicaragua\\site.master||{B30AFBFF-D992-43B7-B62D-2642580A2883}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CDFFDD95-0883-40A5-B9BD-C07A92B17C7F}|ZonaNicaragua\\ZonaNicaragua.csproj|c:\\users\\mirut\\onedrive\\escritorio\\zonanicaragua\\zonanicaragua\\infopelicula.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{CDFFDD95-0883-40A5-B9BD-C07A92B17C7F}|ZonaNicaragua\\ZonaNicaragua.csproj|solutionrelative:zonanicaragua\\infopelicula.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CDFFDD95-0883-40A5-B9BD-C07A92B17C7F}|ZonaNicaragua\\ZonaNicaragua.csproj|c:\\users\\mirut\\onedrive\\escritorio\\zonanicaragua\\zonanicaragua\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{CDFFDD95-0883-40A5-B9BD-C07A92B17C7F}|ZonaNicaragua\\ZonaNicaragua.csproj|solutionrelative:zonanicaragua\\default.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "InfoSerie.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\mirut\\OneDrive\\Escritorio\\ZonaNicaragua\\ZonaNicaragua\\InfoSerie.aspx.cs",
+              "RelativeDocumentMoniker": "ZonaNicaragua\\InfoSerie.aspx.cs",
+              "ToolTip": "C:\\Users\\mirut\\OneDrive\\Escritorio\\ZonaNicaragua\\ZonaNicaragua\\InfoSerie.aspx.cs",
+              "RelativeToolTip": "ZonaNicaragua\\InfoSerie.aspx.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAcwCkAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T03:06:20.512Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "addEpisodios.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\mirut\\OneDrive\\Escritorio\\ZonaNicaragua\\ZonaNicaragua\\addEpisodios.aspx.cs",
+              "RelativeDocumentMoniker": "ZonaNicaragua\\addEpisodios.aspx.cs",
+              "ToolTip": "C:\\Users\\mirut\\OneDrive\\Escritorio\\ZonaNicaragua\\ZonaNicaragua\\addEpisodios.aspx.cs",
+              "RelativeToolTip": "ZonaNicaragua\\addEpisodios.aspx.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAgwDMAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T03:05:28.261Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "addPeliculas.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\mirut\\OneDrive\\Escritorio\\ZonaNicaragua\\ZonaNicaragua\\addPeliculas.aspx.cs",
+              "RelativeDocumentMoniker": "ZonaNicaragua\\addPeliculas.aspx.cs",
+              "ToolTip": "C:\\Users\\mirut\\OneDrive\\Escritorio\\ZonaNicaragua\\ZonaNicaragua\\addPeliculas.aspx.cs",
+              "RelativeToolTip": "ZonaNicaragua\\addPeliculas.aspx.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAAACgAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T02:47:41.797Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Site.Master.cs",
+              "DocumentMoniker": "C:\\Users\\mirut\\OneDrive\\Escritorio\\ZonaNicaragua\\ZonaNicaragua\\Site.Master.cs",
+              "RelativeDocumentMoniker": "ZonaNicaragua\\Site.Master.cs",
+              "ToolTip": "C:\\Users\\mirut\\OneDrive\\Escritorio\\ZonaNicaragua\\ZonaNicaragua\\Site.Master.cs",
+              "RelativeToolTip": "ZonaNicaragua\\Site.Master.cs",
+              "ViewState": "AgIAAIMAAAAAAAAAAAAAAI8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T02:02:56.652Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Site.Master",
+              "DocumentMoniker": "C:\\Users\\mirut\\OneDrive\\Escritorio\\ZonaNicaragua\\ZonaNicaragua\\Site.Master",
+              "RelativeDocumentMoniker": "ZonaNicaragua\\Site.Master",
+              "ToolTip": "C:\\Users\\mirut\\OneDrive\\Escritorio\\ZonaNicaragua\\ZonaNicaragua\\Site.Master",
+              "RelativeToolTip": "ZonaNicaragua\\Site.Master",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-07-07T01:16:08.305Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Default.aspx",
+              "DocumentMoniker": "C:\\Users\\mirut\\OneDrive\\Escritorio\\ZonaNicaragua\\ZonaNicaragua\\Default.aspx",
+              "RelativeDocumentMoniker": "ZonaNicaragua\\Default.aspx",
+              "ToolTip": "C:\\Users\\mirut\\OneDrive\\Escritorio\\ZonaNicaragua\\ZonaNicaragua\\Default.aspx",
+              "RelativeToolTip": "ZonaNicaragua\\Default.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-07-07T01:14:30.801Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "InfoPelicula.aspx",
+              "DocumentMoniker": "C:\\Users\\mirut\\OneDrive\\Escritorio\\ZonaNicaragua\\ZonaNicaragua\\InfoPelicula.aspx",
+              "RelativeDocumentMoniker": "ZonaNicaragua\\InfoPelicula.aspx",
+              "ToolTip": "C:\\Users\\mirut\\OneDrive\\Escritorio\\ZonaNicaragua\\ZonaNicaragua\\InfoPelicula.aspx",
+              "RelativeToolTip": "ZonaNicaragua\\InfoPelicula.aspx",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-07-06T23:27:52.972Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
