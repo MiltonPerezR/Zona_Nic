@@ -16,7 +16,7 @@ namespace ZonaNicaragua
             if (!Page.IsPostBack)
             {
                 Uow = new AppDbContext();
-
+                
                 if (Session["UsuarioId"] == null)
                 {
                     Response.Redirect("Login.aspx");

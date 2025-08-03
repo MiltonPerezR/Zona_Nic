@@ -123,6 +123,15 @@ namespace ZonaNicaragua
         protected global::System.Web.UI.WebControls.TextBox txtSinopsis;
 
         /// <summary>
+        /// Control fechaEstreno.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox fechaEstreno;
+
+        /// <summary>
         /// Control genero.
         /// </summary>
         /// <remarks>

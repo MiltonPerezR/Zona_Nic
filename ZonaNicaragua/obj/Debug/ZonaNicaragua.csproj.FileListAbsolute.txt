@@ -385,6 +385,16 @@ C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\bin\es\System.Web
 C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\bin\es\Microsoft.AspNet.FriendlyUrls.resources.dll
 C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\obj\Debug\ZonaNicaragua.csproj.AssemblyReference.cache
 C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\obj\Debug\ZonaNicaragua.csproj.CoreCompileInputs.cache
-C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\obj\Debug\ZonaNicaragua.csproj.CopyComplete
 C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\obj\Debug\ZonaNicaragua.dll
 C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\obj\Debug\ZonaNicaragua.pdb
+C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\bin\selenium-manager\linux\selenium-manager
+C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\bin\selenium-manager\macos\selenium-manager
+C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\bin\selenium-manager\windows\selenium-manager.exe
+C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\bin\System.Text.Encodings.Web.dll
+C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\bin\System.Text.Json.dll
+C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\bin\WebDriver.dll
+C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\bin\System.Text.Encodings.Web.xml
+C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\bin\System.Text.Json.xml
+C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\bin\WebDriver.xml
+C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\bin\SeleniumExtras.WaitHelpers.dll
+C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\obj\Debug\ZonaNicaragua.csproj.CopyComplete

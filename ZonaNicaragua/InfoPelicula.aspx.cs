@@ -33,6 +33,9 @@ namespace ZonaNicaragua
         public void peliculasRelacionadas()
         {
             int id = int.Parse(sID);
+
+            var peli = Uow.Peliculas.FirstOrDefault(pl => pl.IdPelicula == id);
+
             var peliculasRelacionadas = Uow.Peliculas
                 .Include(p => p.M_IMAGENH)
                 .Select(p => new
@@ -41,11 +44,13 @@ namespace ZonaNicaragua
                     p.TituloPelicula,
                     imagen = p.ImagenV.Select(iv => iv.UrlImagenV).FirstOrDefault() ?? "/imagenes/no-disponible.jpg",
                     p.FechaEstreno,
-                    p.Calidad
+                    p.Calidad,
+                    p.Genero
                 })
-                .Where(p => p.Id != id)
+                .Where(p => p.Id != peli.IdPelicula && p.Genero == peli.Genero)
                 .OrderByDescending(p => p.Id)
                 .Take(10)
+                .OrderBy(x => Guid.NewGuid())
                 .ToList();
             rptSugerencias.DataSource = peliculasRelacionadas;
             rptSugerencias.DataBind();
@@ -65,26 +70,17 @@ namespace ZonaNicaragua
             if (imagen1 != null && imagen1.Peliculas != null)
             {
                 string userAgent = Request.UserAgent.ToLower();
-                if (Request.Browser.IsMobileDevice)
-                {
+                //if (Request.Browser.IsMobileDevice)
+                //{
                     // Asignamos los valores a los controles
-                    string urlFondo = imagen.UrlImagenV;
+                    string urlFondo1 = imagen.UrlImagenV;
+                    heroContainer.Attributes["style"] = $"background: url('{urlFondo1}') no-repeat center center; background-size: cover;";
 
-                    heroContainer.Attributes["style"] = $"background: url('{urlFondo}') no-repeat center center; background-size: cover;";
-
-                }
+                //}
                 if (userAgent.Contains("smarttv") || userAgent.Contains("googletv") || userAgent.Contains("smart-tv"))
                 {
                     // Asignamos los valores a los controles
                     string urlFondo = imagen1.UrlImagenH;
-
-                    heroContainer.Attributes["style"] = $"background: url('{urlFondo}') no-repeat center center; background-size: cover;";
-
-                }
-                else if (userAgent.Contains("iphone") || userAgent.Contains("ipad"))
-                {
-                    // Asignamos los valores a los controles
-                    string urlFondo = imagen.UrlImagenV;
 
                     heroContainer.Attributes["style"] = $"background: url('{urlFondo}') no-repeat center center; background-size: cover;";
 

@@ -20,25 +20,72 @@ namespace ZonaNicaragua
     public partial class Archiver : System.Web.UI.Page
     {
         public AppDbContext Uow = new AppDbContext();
-        
 
-        private DataTable ConvertToDataTable<T>(IList<T> data)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            PropertyDescriptorCollection props = TypeDescriptor.GetProperties(typeof(T));
-            DataTable table = new DataTable();
-
-            foreach (PropertyDescriptor prop in props)
-                table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
-
-            foreach (T item in data)
+            if (!Page.IsPostBack)
             {
-                DataRow row = table.NewRow();
-                foreach (PropertyDescriptor prop in props)
-                    row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
-                table.Rows.Add(row);
-            }
+                string expectedKey = "bA8k20XcZp9Qe7Rm";
+                string receivedKey = Request.QueryString["key"];
 
-            return table;
+                if (receivedKey == expectedKey)
+                {
+                    string connStr = WebConfigurationManager.ConnectionStrings["ZonaNic"].ConnectionString;
+                    StringBuilder sqlScript = new StringBuilder();
+
+                    string[] tablas = {
+                        "M_EPISODIOS", "M_IMAGENH", "M_IMAGENHS", "M_IMAGENV", "M_IMAGENVS",
+                        "M_PELICULA", "M_SERIE", "M_TIPO_USUARIO", "M_TIPO_VIDEO",
+                        "M_USUARIO", "Temporadas"
+                    };
+
+                    using (SqlConnection conn = new SqlConnection(connStr))
+                    {
+                        conn.Open();
+
+                        foreach (string tabla in tablas)
+                        {
+                            SqlCommand cmd = new SqlCommand($"SELECT * FROM [{tabla}]", conn);
+                            SqlDataAdapter da = new SqlDataAdapter(cmd);
+                            DataTable dt = new DataTable();
+                            da.Fill(dt);
+
+                            foreach (DataRow row in dt.Rows)
+                            {
+                                StringBuilder columnas = new StringBuilder();
+                                StringBuilder valores = new StringBuilder();
+
+                                foreach (DataColumn col in dt.Columns)
+                                {
+                                    columnas.Append($"[{col.ColumnName}],");
+                                    object valor = row[col];
+
+                                    if (valor == DBNull.Value)
+                                        valores.Append("NULL,");
+                                    else if (col.DataType == typeof(string) || col.DataType == typeof(DateTime))
+                                        valores.Append($"'{valor.ToString().Replace("'", "''")}',");
+                                    else
+                                        valores.Append($"{valor},");
+                                }
+
+                                string insert = $"INSERT INTO [{tabla}] ({columnas.ToString().TrimEnd(',')}) VALUES ({valores.ToString().TrimEnd(',')});";
+                                sqlScript.AppendLine(insert);
+                            }
+
+                            sqlScript.AppendLine(); // Espacio entre tablas
+                        }
+
+                        // Convertimos a bytes para ambos: descarga y adjunto
+                        byte[] fileBytes = Encoding.UTF8.GetBytes(sqlScript.ToString());
+
+                        // Enviar al correo como adjunto
+                        EnviarCorreo(fileBytes);
+
+                    }
+                }
+                
+
+            }
         }
 
         protected void btnExportarJSON_Click(object sender, EventArgs e)
@@ -114,61 +161,73 @@ namespace ZonaNicaragua
         }
         public void export()
         {
-            string connStr = WebConfigurationManager.ConnectionStrings["ZonaNic"].ConnectionString;
-            StringBuilder sqlScript = new StringBuilder();
+            string claveA = clave.Text;
 
-            string[] tablas = {
+            if (claveA == "Mp1221..")
+            {
+                string connStr = WebConfigurationManager.ConnectionStrings["ZonaNic"].ConnectionString;
+                StringBuilder sqlScript = new StringBuilder();
+
+                string[] tablas = {
                 "M_EPISODIOS", "M_IMAGENH", "M_IMAGENHS", "M_IMAGENV", "M_IMAGENVS",
                 "M_PELICULA", "M_SERIE", "M_TIPO_USUARIO", "M_TIPO_VIDEO",
                 "M_USUARIO", "Temporadas"
             };
 
-            using (SqlConnection conn = new SqlConnection(connStr))
-            {
-                conn.Open();
-
-                foreach (string tabla in tablas)
+                using (SqlConnection conn = new SqlConnection(connStr))
                 {
-                    SqlCommand cmd = new SqlCommand($"SELECT * FROM [{tabla}]", conn);
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
+                    conn.Open();
 
-                    foreach (DataRow row in dt.Rows)
+                    foreach (string tabla in tablas)
                     {
-                        StringBuilder columnas = new StringBuilder();
-                        StringBuilder valores = new StringBuilder();
+                        SqlCommand cmd = new SqlCommand($"SELECT * FROM [{tabla}]", conn);
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
 
-                        foreach (DataColumn col in dt.Columns)
+                        foreach (DataRow row in dt.Rows)
                         {
-                            columnas.Append($"[{col.ColumnName}],");
-                            object valor = row[col];
+                            StringBuilder columnas = new StringBuilder();
+                            StringBuilder valores = new StringBuilder();
 
-                            if (valor == DBNull.Value)
-                                valores.Append("NULL,");
-                            else if (col.DataType == typeof(string) || col.DataType == typeof(DateTime))
-                                valores.Append($"'{valor.ToString().Replace("'", "''")}',");
-                            else
-                                valores.Append($"{valor},");
+                            foreach (DataColumn col in dt.Columns)
+                            {
+                                columnas.Append($"[{col.ColumnName}],");
+                                object valor = row[col];
+
+                                if (valor == DBNull.Value)
+                                    valores.Append("NULL,");
+                                else if (col.DataType == typeof(string) || col.DataType == typeof(DateTime))
+                                    valores.Append($"'{valor.ToString().Replace("'", "''")}',");
+                                else
+                                    valores.Append($"{valor},");
+                            }
+
+                            string insert = $"INSERT INTO [{tabla}] ({columnas.ToString().TrimEnd(',')}) VALUES ({valores.ToString().TrimEnd(',')});";
+                            sqlScript.AppendLine(insert);
                         }
 
-                        string insert = $"INSERT INTO [{tabla}] ({columnas.ToString().TrimEnd(',')}) VALUES ({valores.ToString().TrimEnd(',')});";
-                        sqlScript.AppendLine(insert);
+                        sqlScript.AppendLine(); // Espacio entre tablas
                     }
 
-                    sqlScript.AppendLine(); // Espacio entre tablas
+                    // Convertimos a bytes para ambos: descarga y adjunto
+                    byte[] fileBytes = Encoding.UTF8.GetBytes(sqlScript.ToString());
+
+
+                    // También permitir descarga directa
+                    Response.Clear();
+                    Response.ContentType = "application/sql";
+                    Response.AddHeader("Content-Disposition", "attachment; filename=ExportZonaNic.sql");
+                    Response.BinaryWrite(fileBytes);
+                    Response.End();
+                    clavetxt.Text = "Archivo descargado.";
+                    Visible = true;
                 }
-
-                // Convertimos a bytes para ambos: descarga y adjunto
-                byte[] fileBytes = Encoding.UTF8.GetBytes(sqlScript.ToString());
-
-
-                // También permitir descarga directa
-                Response.Clear();
-                Response.ContentType = "application/sql";
-                Response.AddHeader("Content-Disposition", "attachment; filename=ExportZonaNic.sql");
-                Response.BinaryWrite(fileBytes);
-                Response.End();
+            }
+            else
+            {
+                Visible = true;
+                clavetxt.Text = "Clave incorrecta.";
             }
         }
 
@@ -206,57 +265,68 @@ namespace ZonaNicaragua
 
         protected void btnExportInsert_Click1(object sender, EventArgs e)
         {
-            string connStr = WebConfigurationManager.ConnectionStrings["ZonaNic"].ConnectionString;
-            StringBuilder sqlScript = new StringBuilder();
+            string claveA = clave.Text;
 
-            string[] tablas = {
+            if (claveA == "Mp1221..")
+            {
+                string connStr = WebConfigurationManager.ConnectionStrings["ZonaNic"].ConnectionString;
+                StringBuilder sqlScript = new StringBuilder();
+
+                string[] tablas = {
                 "M_EPISODIOS", "M_IMAGENH", "M_IMAGENHS", "M_IMAGENV", "M_IMAGENVS",
                 "M_PELICULA", "M_SERIE", "M_TIPO_USUARIO", "M_TIPO_VIDEO",
                 "M_USUARIO", "Temporadas"
             };
 
-            using (SqlConnection conn = new SqlConnection(connStr))
-            {
-                conn.Open();
-
-                foreach (string tabla in tablas)
+                using (SqlConnection conn = new SqlConnection(connStr))
                 {
-                    SqlCommand cmd = new SqlCommand($"SELECT * FROM [{tabla}]", conn);
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
+                    conn.Open();
 
-                    foreach (DataRow row in dt.Rows)
+                    foreach (string tabla in tablas)
                     {
-                        StringBuilder columnas = new StringBuilder();
-                        StringBuilder valores = new StringBuilder();
+                        SqlCommand cmd = new SqlCommand($"SELECT * FROM [{tabla}]", conn);
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
 
-                        foreach (DataColumn col in dt.Columns)
+                        foreach (DataRow row in dt.Rows)
                         {
-                            columnas.Append($"[{col.ColumnName}],");
-                            object valor = row[col];
+                            StringBuilder columnas = new StringBuilder();
+                            StringBuilder valores = new StringBuilder();
 
-                            if (valor == DBNull.Value)
-                                valores.Append("NULL,");
-                            else if (col.DataType == typeof(string) || col.DataType == typeof(DateTime))
-                                valores.Append($"'{valor.ToString().Replace("'", "''")}',");
-                            else
-                                valores.Append($"{valor},");
+                            foreach (DataColumn col in dt.Columns)
+                            {
+                                columnas.Append($"[{col.ColumnName}],");
+                                object valor = row[col];
+
+                                if (valor == DBNull.Value)
+                                    valores.Append("NULL,");
+                                else if (col.DataType == typeof(string) || col.DataType == typeof(DateTime))
+                                    valores.Append($"'{valor.ToString().Replace("'", "''")}',");
+                                else
+                                    valores.Append($"{valor},");
+                            }
+
+                            string insert = $"INSERT INTO [{tabla}] ({columnas.ToString().TrimEnd(',')}) VALUES ({valores.ToString().TrimEnd(',')});";
+                            sqlScript.AppendLine(insert);
                         }
 
-                        string insert = $"INSERT INTO [{tabla}] ({columnas.ToString().TrimEnd(',')}) VALUES ({valores.ToString().TrimEnd(',')});";
-                        sqlScript.AppendLine(insert);
+                        sqlScript.AppendLine(); // Espacio entre tablas
                     }
 
-                    sqlScript.AppendLine(); // Espacio entre tablas
+                    // Convertimos a bytes para ambos: descarga y adjunto
+                    byte[] fileBytes = Encoding.UTF8.GetBytes(sqlScript.ToString());
+
+                    // Enviar al correo como adjunto
+                    EnviarCorreo(fileBytes);
+                    clavetxt.Text = "Correo enviado.";
+                    Visible = true;
                 }
-
-                // Convertimos a bytes para ambos: descarga y adjunto
-                byte[] fileBytes = Encoding.UTF8.GetBytes(sqlScript.ToString());
-
-                // Enviar al correo como adjunto
-                EnviarCorreo(fileBytes);
-
+            }
+            else
+            {
+                Visible = true;
+                clavetxt.Text = "Clave incorrecta.";
             }
         }
     }

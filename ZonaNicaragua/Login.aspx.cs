@@ -14,6 +14,19 @@ namespace ZonaNicaragua
         {
             if (!Page.IsPostBack)
             {
+                //if (Request.Cookies["UserUID"] == null)
+                //{
+                //    string uid = Guid.NewGuid().ToString();
+                //    Response.Cookies["UserUID"].Value = uid;
+                //    Response.Cookies["UserUID"].Expires = DateTime.Now.AddYears(1); // persistente
+
+                //    // Puedes guardar este uid en tu base de datos aquí
+                //}
+                //else
+                //{
+                //    string uid = Request.Cookies["UserUID"].Value;
+                //    // Puedes usar este uid para recuperar datos del usuario
+                //}
                 if (Session["UsuarioId"] == null && Request.Cookies["UsuarioCookie"] != null)
                 {
                     var cookie = Request.Cookies["UsuarioCookie"];

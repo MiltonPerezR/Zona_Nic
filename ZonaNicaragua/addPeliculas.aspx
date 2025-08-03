@@ -21,9 +21,9 @@
             border: 1px solid #444;
         }
 
-        .form-control::placeholder {
-            color: #aaa;
-        }
+            .form-control::placeholder {
+                color: #aaa;
+            }
 
         label {
             font-weight: 500;
@@ -36,19 +36,19 @@
             border: none;
         }
 
-        .btn-rojo:hover {
-            background-color: #ff0a16;
-        }
+            .btn-rojo:hover {
+                background-color: #ff0a16;
+            }
 
         .btn-outline-light {
             border-color: #ccc;
             color: #ccc;
         }
 
-        .btn-outline-light:hover {
-            background-color: #333;
-            color: #fff;
-        }
+            .btn-outline-light:hover {
+                background-color: #333;
+                color: #fff;
+            }
 
         .text-danger {
             font-size: 0.85rem;
@@ -85,7 +85,10 @@
                                 <asp:TextBox ID="txtSinopsis" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="2" />
                                 <asp:RequiredFieldValidator ID="rfvSinopsis" runat="server" ControlToValidate="txtSinopsis" CssClass="text-danger" ValidationGroup="Formulario" />
                             </div>
-
+                            <div class="col-md-12">
+                                <label>Clasificación de edad</label>
+                                <asp:TextBox ID="txtClasificacionEdad" runat="server" CssClass="form-control"/>
+                            </div>
                             <div class="col-md-4">
                                 <label>Duración</label>
                                 <asp:TextBox ID="tbDuracion" runat="server" CssClass="form-control" />
@@ -105,12 +108,12 @@
                             </div>
 
                             <div class="col-md-6">
-                                <label>Género TMDb</label>
-                                <asp:TextBox ID="genero" runat="server" CssClass="form-control" ReadOnly="true" />
+                                <label>Género</label>
+                                <asp:TextBox ID="genero" runat="server" CssClass="form-control" />
                             </div>
                             <div class="col-md-6">
-                                <label>Géneros TMDb</label>
-                                <asp:TextBox ID="generosM" runat="server" CssClass="form-control" ReadOnly="true" />
+                                <label>Géneros</label>
+                                <asp:TextBox ID="generosM" runat="server" CssClass="form-control" />
                             </div>
                             <div class="col-md-6">
                                 <label>URL Película</label>
@@ -144,10 +147,6 @@
                 <div class="d-flex justify-content-between">
                     <asp:Button ID="btnCerrar" runat="server" Text="Salir" CssClass="btn btn-outline-light" OnClick="btnCerrar_Click" />
                     <asp:Button ID="btnGuardar" runat="server" Text="Guardar Película" CssClass="btn btn-rojo" ValidationGroup="Formulario" OnClick="btnGuardar_Click" />
-                </div>
-
-                <div class="">
-                    <asp:Label ID="lblConfirmacion" runat="server" CssClass="text-success fw-bold"></asp:Label>
                 </div>
             </div>
         </div>

@@ -18,12 +18,76 @@ namespace ZonaNicaragua
             if (!Page.IsPostBack)
             {
                 Uow = new AppDbContext();
-
+                CargarBannerPrincipal();
                 CargarPeliculasPorGeneros();
+                peliculasRelacionadas();
 
             }
         }
+        public void peliculasRelacionadas()
+        {
+            DateTime fechaLimite = DateTime.Now.AddMonths(-1).AddDays(-15);
+            DateTime fechaActual = DateTime.Now;
 
+            // Consulta de películas
+            var peliculas = Uow.Peliculas
+                .Include(p => p.ImagenV)
+                .ToList() // Aquí lo traes a memoria para poder usar C# puro
+                .Select(p => new
+                {
+                    Id = p.IdPelicula,
+                    Titulo = p.TituloPelicula,
+                    Imagen = p.ImagenV.Select(iv => iv.UrlImagenV).FirstOrDefault() ?? "/imagenes/no-disponible.jpg",
+                    FechaEstreno = DateTime.TryParse(p.FechaEstreno, out var fecha) ? fecha.Year.ToString() : "",
+                    Calidad = p.Calidad,
+                    Genero = p.Genero,
+                    Tipo = "Pelicula"
+                })
+                .ToList()
+                .Where(pl => DateTime.TryParse(pl.FechaEstreno, out DateTime fechaEstreno) &&
+                             fechaEstreno >= fechaLimite &&
+                             fechaEstreno <= fechaActual);
+
+            // Consulta de series
+            var series = Uow.Series
+                .Include(s => s.M_IMAGENVS)
+                .Select(s => new
+                {
+                    Id = s.IdSerie,
+                    Titulo = s.TituloSerie,
+                    Imagen = s.M_IMAGENVS.Select(iv => iv.UrlImagenVS).FirstOrDefault() ?? "/imagenes/no-disponible.jpg",
+                    FechaEstreno = s.FechaEstreno,
+                    Calidad = "HD",
+                    Genero = s.Genero,
+                    Tipo = "Serie"
+                })
+                .ToList()
+                .Where(sr => DateTime.TryParse(sr.FechaEstreno, out DateTime fechaEstreno) &&
+                             fechaEstreno >= fechaLimite &&
+                             fechaEstreno <= fechaActual);
+
+            // Unir resultados
+            var contenidoRelacionado = peliculas
+                .Concat(series)
+                .OrderByDescending(x => x.Id)
+                .Take(10)
+                .OrderBy(x => Guid.NewGuid())
+                .ToList();
+
+            rptSugerencias.DataSource = contenidoRelacionado;
+            rptSugerencias.DataBind();
+        }
+
+        protected void rptSugerencias_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            if (e.CommandName == "VerPelicula")
+            {
+                string idPelicula = e.CommandArgument.ToString();
+
+                // Aquí puedes redirigir a la página de esa película
+                Response.Redirect("InfoPelicula.aspx?Id=" + idPelicula);
+            }
+        }
         private void CargarPeliculasPorGeneros()
         {
             var peliculas = Uow.ImagenV
@@ -54,8 +118,11 @@ namespace ZonaNicaragua
                 string userAgent = Request.UserAgent.ToLower();
                 if (userAgent.Contains("android") || userAgent.Contains("smarttv") || userAgent.Contains("googletv") || userAgent.Contains("smart-tv"))
                 {
-                    var imaV = Uow.ImagenV.FirstOrDefault(p => p.IdPeliculaV == peliculaAleatoria.IdPelicula);
-                    url = imaV != null ? imaV.UrlImagenV : "";
+                    //var imaV = Uow.ImagenV.FirstOrDefault(p => p.IdPeliculaV == peliculaAleatoria.IdPelicula);
+                    //url = imaV != null ? imaV.UrlImagenV : "";
+
+                    var ima = Uow.M_IMAGENH.FirstOrDefault(p => p.IdPeliculaH == peliculaAleatoria.IdPelicula);
+                    url = ima != null ? ima.UrlImagenH : "";
                 }
                 else
                 {
@@ -82,7 +149,8 @@ namespace ZonaNicaragua
                         {
                             IdPelicula = p.Peliculas.IdPelicula,
                             TituloPelicula = p.Peliculas.TituloPelicula,
-                            Genero = p.Peliculas.Genero
+                            Genero = p.Peliculas.Genero,
+                            Calidad = p.Peliculas.Calidad
                         },
                         UrlImagenV = p.UrlImagenV,
                         Tipo = "Pelicula"
@@ -104,7 +172,8 @@ namespace ZonaNicaragua
                         {
                             IdPelicula = s.IdSerie,
                             TituloPelicula = s.TituloSerie,
-                            Generos = s.Generos
+                            Generos = s.Generos,
+                            Calidad = "HD"
                         },
                         UrlImagenV = imagenUrl,
                         Tipo = "Serie"
@@ -118,7 +187,7 @@ namespace ZonaNicaragua
                     {
                         Genero = g.Key,
                         Peliculas = g.OrderBy(x => Guid.NewGuid()) // Orden aleatorio
-                                     .Take(10)                   // Máximo 10
+                                     .Take(25)
                                      .ToList()
                     })
                     .ToList();
@@ -128,6 +197,47 @@ namespace ZonaNicaragua
             }
         }
 
+        protected void timerBanner_Tick(object sender, EventArgs e)
+        {
+            CargarBannerPrincipal();
+        }
+        private void CargarBannerPrincipal()
+        {
+            Uow = new AppDbContext();
+
+            int totalPeliculas = Uow.Peliculas.Count();
+            if (totalPeliculas == 0) return;
+
+            Random rnd = new Random();
+            int indexAleatorio = rnd.Next(totalPeliculas);
+
+            var peliculaAleatoria = Uow.Peliculas
+                .OrderBy(p => p.IdPelicula)
+                .Skip(indexAleatorio)
+                .FirstOrDefault();
+
+            if (peliculaAleatoria != null)
+            {
+                lblId.Text = peliculaAleatoria.IdPelicula.ToString();
+                lblTitleP.Text = peliculaAleatoria.TituloPelicula;
+
+                string url = "";
+                string userAgent = Request.UserAgent.ToLower();
+
+                if (userAgent.Contains("android") || userAgent.Contains("smarttv") || userAgent.Contains("googletv") || userAgent.Contains("smart-tv"))
+                {
+                    var ima = Uow.M_IMAGENH.FirstOrDefault(p => p.IdPeliculaH == peliculaAleatoria.IdPelicula);
+                    url = ima != null ? ima.UrlImagenH : "";
+                }
+                else
+                {
+                    var ima = Uow.M_IMAGENH.FirstOrDefault(p => p.IdPeliculaH == peliculaAleatoria.IdPelicula);
+                    url = ima != null ? ima.UrlImagenH : "";
+                }
+
+                bannerPrincipal.Style["background-image"] = $"url('{url}')";
+            }
+        }
 
 
         protected void rptGeneros_ItemDataBound(object sender, RepeaterItemEventArgs e)

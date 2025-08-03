@@ -18,6 +18,7 @@ namespace ZonaNicaragua.Models
         public string SinopsisSerie { get; set; }
         public int IdTipoVideo { get; set; }
         public string Generos { get; set; }
+        public string FechaEstreno { get; set; }
         public string Genero { get; set; }
         public int IdEpisodioQuedo { get; set; }
 

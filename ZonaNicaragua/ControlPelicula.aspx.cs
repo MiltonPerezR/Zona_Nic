@@ -126,6 +126,7 @@ namespace ZonaNicaragua
             previewV.ImageUrl = imagenV.UrlImagenV;
             previewH.ImageUrl = imagenH.UrlImagenH;
             Genero.Text = peliculas.Genero;
+            fechaEstreno.Text = peliculas.FechaEstreno;
         }
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
@@ -141,6 +142,7 @@ namespace ZonaNicaragua
             addPelicula.TiempoPelicula = tbDuracion.Text;
             addPelicula.Calidad = calidad.Text;
             addPelicula.Genero = Genero.Text;
+            addPelicula.FechaEstreno = fechaEstreno.Text;
             Uow.SaveChanges();
 
             var addImagenV = Uow.ImagenV.FirstOrDefault(v => v.IdPeliculaV == lb);

@@ -18,6 +18,7 @@ namespace ZonaNicaragua
         {
             if (!Page.IsPostBack)
             {
+
             }
         }
 
@@ -92,7 +93,8 @@ namespace ZonaNicaragua
             tbDuracion.Text = string.Empty;
             tbImagenV.Text = string.Empty;
             tbImagenH.Text = string.Empty;
-            genero.Text = "";
+            genero.Text = string.Empty;
+            generosM.Text = string.Empty;
         }
 
         protected void btnCerrar_Click(object sender, EventArgs e)
@@ -114,18 +116,16 @@ namespace ZonaNicaragua
                     txtSinopsis.Text = datos["overview"]?.ToString();
                     fechaEstreno.Text = datos["release_date"]?.ToString();
 
+                    // Géneros
                     var generos = datos["genres"];
-
                     if (generos != null && generos.HasValues)
                     {
                         string generoTMDb = generos[0]["name"]?.ToString();
                         genero.Text = generoTMDb;
 
-                        // Mostrar todos los géneros en un solo string separados por coma
                         var nombresGeneros = generos.Select(g => g["name"]?.ToString()).ToList();
                         generosM.Text = string.Join(", ", nombresGeneros);
                     }
-
 
                     // Imagen vertical (poster)
                     string posterPath = datos["poster_path"]?.ToString();
@@ -157,9 +157,82 @@ namespace ZonaNicaragua
                     {
                         tbDuracion.Text = "Duración no disponible";
                     }
+
+                    // Clasificación de edad
+                    var certificaciones = datos["certification"]?["results"];
+                    if (certificaciones != null)
+                    {
+                        string[] paises = { "NI", "ES", "US" };
+                        string clasificacionOriginal = "";
+                        string clasificacionFinal = "+0";
+
+                        foreach (var pais in paises)
+                        {
+                            var paisData = certificaciones.FirstOrDefault(c => c["iso_3166_1"]?.ToString() == pais);
+                            if (paisData != null && paisData["release_dates"] != null)
+                            {
+                                var firstCert = paisData["release_dates"]
+                                    .FirstOrDefault(c => !string.IsNullOrEmpty(c["certification"]?.ToString()));
+
+                                if (firstCert != null)
+                                {
+                                    clasificacionOriginal = firstCert["certification"]?.ToString().Trim();
+                                    break;
+                                }
+                            }
+                        }
+
+                        // Mapeo a +0, +7, +13, +17, +18
+                        switch (clasificacionOriginal)
+                        {
+                            case "G":
+                            case "TP":
+                            case "0":
+                            case "A":
+                                clasificacionFinal = "+0";
+                                break;
+                            case "PG":
+                            case "7":
+                            case "ATP":
+                                clasificacionFinal = "+7";
+                                break;
+                            case "PG-13":
+                            case "12":
+                            case "13":
+                            case "B":
+                                clasificacionFinal = "+13";
+                                break;
+                            case "R":
+                            case "16":
+                            case "17":
+                            case "B15":
+                                clasificacionFinal = "+17";
+                                break;
+                            case "NC-17":
+                            case "18":
+                            case "C":
+                                clasificacionFinal = "+18";
+                                break;
+                            default:
+                                clasificacionFinal = "+0";
+                                break;
+                        }
+
+                        txtClasificacionEdad.Text = clasificacionFinal;
+                    }
+                    else
+                    {
+                        txtClasificacionEdad.Text = "+0";
+                    }
+                }
+                else
+                {
+                    string script = $"mostrarAlerta('Error', 'Película no encontrada.', 'error');";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "SweetAlert", script, true);
                 }
             }
         }
+
 
         private async Task<JObject> ObtenerInformacionPelicula(string titulo)
         {
@@ -176,13 +249,21 @@ namespace ZonaNicaragua
                 {
                     var idPelicula = resultados[0]["id"];
                     string urlDetalles = $"https://api.themoviedb.org/3/movie/{idPelicula}?api_key={apiKey}&language=es-ES";
+                    string urlClasificacion = $"https://api.themoviedb.org/3/movie/{idPelicula}/release_dates?api_key={apiKey}";
 
                     var detalle = await client.GetStringAsync(urlDetalles);
-                    return JObject.Parse(detalle);
+                    var clasificacion = await client.GetStringAsync(urlClasificacion);
+
+                    JObject datos = JObject.Parse(detalle);
+                    JObject clasificacionJson = JObject.Parse(clasificacion);
+                    datos["certification"] = clasificacionJson;
+
+                    return datos;
                 }
             }
 
             return null;
         }
+
     }
 }

@@ -119,11 +119,13 @@ namespace ZonaNicaragua
                 }
                 if (userAgent.Contains("smarttv") || userAgent.Contains("googletv") || userAgent.Contains("smart-tv"))
                 {
-                    Response.Redirect($"Reproducir.aspx?id={idEpisodio}&tipo=2");
+                    //Response.Redirect($"Reproducir.aspx?id={idEpisodio}&tipo=2");
+                    Response.Redirect(epi.UrlVideo);
                 }
                 else
                 {
-                    Response.Redirect($"Reproducir.aspx?id={idEpisodio}&tipo=2");
+                    Response.Redirect(epi.UrlVideo);
+                    //Response.Redirect($"Reproducir.aspx?id={idEpisodio}&tipo=2");
                 }
             }
         }

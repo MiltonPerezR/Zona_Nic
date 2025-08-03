@@ -97,8 +97,6 @@ namespace ZonaNicaragua
             tbMiniatura.Text = "";
             lblUrl.Text = "";
             tnTiempoEpi.Text = "";
-            ddlSerie.ClearSelection();
-            CargarDatos();
         }
 
         protected void btnCerrar_Click(object sender, EventArgs e)

@@ -1,41 +1,79 @@
 ﻿<%@ Page Title="ZonaNic - Películas" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ZonaNicaragua.Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
             <style>
-                body {
-                    /* 👉 Color de fondo al inicio (oscuro) */
-                    background-color: #1e1b1b; /* Color actualizado */
-                    color: #fff;
-                    transition: background-color 0.5s ease;
-                }
+    .ribbon-year {
+        position: absolute;
+        top: 10px;
+        left: -5px;
+        background-color: red;
+        color: white;
+        padding: 4px 10px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        transform: rotate(-10deg);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        z-index: 10;
+        border-radius: 3px;
+    }
 
+    .suggestion-card {
+        position: relative;
+        overflow: hidden;
+    }
+</style>
 
-                /* Esta clase es por si quieres alternar manualmente el fondo negro */
-                .body-alt-color {
-                    background-color: rgb(0, 0, 0) !important; /* Este es el color al hacer scroll (negro) */
-                }
-            </style>
-
+            <link href="Content/css/movies.css" rel="stylesheet" type="text/css" />
             <!-- Banner Principal -->
             <asp:Label runat="server" ID="lblId" Visible="false"></asp:Label>
-            <!-- Banner Principal dinámico -->
-            <div id="bannerPrincipal" runat="server" class="banner-principal">
-                <div class="banner-contenido">
-                    <h1>
-                        <asp:Label runat="server" ID="lblTitleP"></asp:Label></h1>
-                    <p>
-                        <%--<asp:Label runat="server" ID="lblSinopsisP"></asp:Label>--%>
-                    </p>
-                    <div class="banner-botones">
-                        <asp:LinkButton runat="server" ID="btnRepro" CssClass="btn btn-light" OnClick="btnRepro_Click">Reproducir</asp:LinkButton>
-                        <asp:LinkButton runat="server" ID="btnInfo" CssClass="btn btn-secondary" OnClick="btnInfo_Click">Más información</asp:LinkButton>
+
+            <asp:UpdatePanel ID="upBanner" runat="server">
+                <ContentTemplate>
+                    <asp:Label runat="server" ID="Label1" Visible="false"></asp:Label>
+                    <div id="bannerPrincipal" runat="server" class="banner-principal">
+                        <div class="banner-contenido">
+                            <h1>
+                                <asp:Label runat="server" ID="lblTitleP"></asp:Label>
+                            </h1>
+                            <div class="banner-botones">
+                                <asp:LinkButton runat="server" ID="btnRepro" CssClass="btn btn-light" OnClick="btnRepro_Click">Reproducir</asp:LinkButton>
+                                <asp:LinkButton runat="server" ID="btnInfo" CssClass="btn btn-secondary" OnClick="btnInfo_Click">Más información</asp:LinkButton>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+
+            <!-- Timer para refrescar el banner cada 5 minutos -->
+            <asp:Timer ID="timerBanner" runat="server" Interval="15000" OnTick="timerBanner_Tick" />
+
+            <div class="genero-titulo">Estrenos</div>
+            <div class="carousel-suggestions mt-3">
+                <asp:Repeater ID="rptSugerencias" runat="server" OnItemCommand="rptSugerencias_ItemCommand">
+                    <ItemTemplate>
+                        <div class="suggestion-card focusable" tabindex="0">
+                            <div class="ribbon-year"><%#Eval("FechaEstreno") %></div>
+                            <asp:LinkButton ID="lnkSugerencia" runat="server" CommandName="VerPelicula" CommandArgument='<%# Eval("Id") %>'
+                                CssClass="text-decoration-none text-white" Style="display: block;">
+                    <img src='<%# Eval("imagen") %>' alt='<%# Eval("Titulo") %>' />
+                    <div class="p-2">
+                        <div class="d-flex align-items-center gap-2 small mb-1 text-light">
+                            <span class="badge bg-secondary">7+</span>
+                            <span><%# Eval("Calidad") %></span>
+                            <span><i class="bi bi-earbuds"></i></span>
+                        </div>
+                        <h6 class="text-truncate mb-0"><%# Eval("Titulo") %></h6>
+                    </div>
+                            </asp:LinkButton>
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
             </div>
-            <!-- Repetidor de géneros -->
+
+
+            <!-- Secciones de Películas -->
             <asp:Repeater ID="rptGeneros" runat="server">
                 <ItemTemplate>
                     <div class="genero-titulo"><%# Eval("Genero") %></div>
@@ -45,68 +83,20 @@
                                 <asp:LinkButton runat="server" CssClass="pelicula-item"
                                     CommandName="VerPelicula"
                                     CommandArgument='<%# Eval("Peliculas.IdPelicula") + "|" + Eval("Tipo") %>'>
-                            <img src='<%# Eval("UrlImagenV") %>' alt='<%# Eval("Peliculas.TituloPelicula") %>' />
-                            <%--<div class="pelicula-hover-info">
-                                <h3><%# Eval("Peliculas.TituloPelicula") %></h3>
-                                <div class="pelicula-details"><%# Eval("Peliculas.Generos.Genero") %></div>
-                            </div>--%>
-                        </asp:LinkButton>
-
+                                    <img src='<%# Eval("UrlImagenV") %>' alt='<%# Eval("Peliculas.TituloPelicula") %>' />
+                                    <%--<div class="info-overlay">
+                                        <h4><%# Eval("Peliculas.TituloPelicula") %></h4>
+                                        <div class="info-details">
+                                            Calidad: <%# Eval("Peliculas.Calidad") %>
+                                        </div>
+                                    </div>--%>
+                                </asp:LinkButton>
                             </ItemTemplate>
                         </asp:Repeater>
                     </div>
                 </ItemTemplate>
             </asp:Repeater>
+
         </ContentTemplate>
     </asp:UpdatePanel>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.js"></script>
-    <script>
-        // Función para interpolar (transicionar) entre dos colores
-        function interpolateColor(color1, color2, factor) {
-            const c1 = color1.match(/\d+/g).map(Number);
-            const c2 = color2.match(/\d+/g).map(Number);
-            const result = c1.map((v, i) => Math.round(v + factor * (c2[i] - v)));
-            return `rgb(${result[0]}, ${result[1]}, ${result[2]})`;
-        }
-
-        window.addEventListener("scroll", () => {
-            const navbar = document.querySelector(".navbar");
-            const body = document.body;
-
-            if (window.scrollY > 50) {
-                navbar.classList.add("bg-dark");
-            } else {
-                navbar.classList.remove("bg-dark");
-            }
-
-            // 👉 Aquí defines el rango de scroll para la transición de color
-            const start = 200;
-            const end = 500;
-            const scrollY = window.scrollY;
-
-            let factor = 0;
-            if (scrollY <= start) {
-                factor = 0;
-            } else if (scrollY >= end) {
-                factor = 1;
-            } else {
-                factor = (scrollY - start) / (end - start);
-            }
-
-            // 👉 Color inicial (puedes cambiarlo por el color que quieras al inicio)
-            const startColor = "rgb(30, 27, 27)"; // Café (#4b4242)
-
-            // 👉 Color final al hacer scroll (puedes cambiarlo también si lo deseas)
-            const endColor = "rgb(0, 0, 0)"; // Negro
-
-            // Aplicar color interpolado al fondo del body
-            const newColor = interpolateColor(startColor, endColor, factor);
-            body.style.backgroundColor = newColor;
-        });
-
-        // 👉 Color inicial cuando se carga la página
-        document.body.style.backgroundColor = "rgb(30, 27, 27)";
-</script>
-
 </asp:Content>
