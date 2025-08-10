@@ -58,7 +58,7 @@ namespace ZonaNicaragua
             var precargados = peliculas
                 .Concat(series)
                 .OrderBy(x => Guid.NewGuid())
-                .Take(20)
+                .Take(10)
                 .ToList();
 
             rptResultados.DataSource = precargados;

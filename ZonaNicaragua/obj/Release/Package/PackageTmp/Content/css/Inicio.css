@@ -85,9 +85,9 @@ body {
         transition: transform 0.3s ease;
     }
 
-    .pelicula-item:hover img {
+    /*.pelicula-item:hover img {
         transform: scale(1.1);
-    }
+    }*/
 
 .pelicula-hover-info {
     position: absolute;
@@ -253,6 +253,7 @@ a[href*="somee.com"] {
     footer {
         font-size: 0.8rem;
     }
+
     body {
         padding-bottom: 90px;
     }

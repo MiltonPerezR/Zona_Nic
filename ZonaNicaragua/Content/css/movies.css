@@ -35,10 +35,10 @@
     justify-content: start;
 }
 
-    .pelicula-item:hover {
+    /*.pelicula-item:hover {
         transform: scale(1.0);
         z-index: 2;
-    }
+    }*/
 
     .pelicula-item img {
         width: 100%;
@@ -48,7 +48,7 @@
         user-select: none;
         pointer-events: none;
     }
-
+/*
 .info-overlay {
     position: absolute;
     bottom: 0;
@@ -71,7 +71,7 @@
 .info-details {
     font-size: 13px;
     color: #bbb;
-}
+}*/
 
 .banner-principal {
     position: relative;

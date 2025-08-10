@@ -271,6 +271,7 @@
     <Content Include="Content\AdminLTE\plugins\css\adminlte.rtl.min.css.map" />
     <Content Include="InfoPelicula.aspx" />
     <Content Include="InfoSerie.aspx" />
+    <Content Include="repro.aspx" />
     <Content Include="Reproducir.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
@@ -460,6 +461,13 @@
     <Compile Include="Repositorios\UnitOfWork.cs" />
     <Compile Include="Repositorios\UsuarioRepositorio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="repro.aspx.cs">
+      <DependentUpon>repro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="repro.aspx.designer.cs">
+      <DependentUpon>repro.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Reproducir.aspx.cs">
       <DependentUpon>Reproducir.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

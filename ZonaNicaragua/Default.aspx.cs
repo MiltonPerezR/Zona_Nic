@@ -168,7 +168,8 @@ namespace ZonaNicaragua
                             IdPelicula = p.Peliculas.IdPelicula,
                             TituloPelicula = p.Peliculas.TituloPelicula,
                             Genero = p.Peliculas.Genero,
-                            Calidad = p.Peliculas.Calidad
+                            //FechaEstreno = p.Peliculas.FechaEstreno,
+                            //Calidad = p.Peliculas.Calidad
                         },
                         UrlImagenV = p.UrlImagenV,
                         Tipo = "Pelicula"
@@ -190,8 +191,9 @@ namespace ZonaNicaragua
                         {
                             IdPelicula = s.IdSerie,
                             TituloPelicula = s.TituloSerie,
+                            //FechaEstreno = s.FechaEstreno,
                             Generos = s.Generos,
-                            Calidad = "HD"
+                            //Calidad = "HD"
                         },
                         UrlImagenV = imagenUrl,
                         Tipo = "Serie"
@@ -205,7 +207,7 @@ namespace ZonaNicaragua
                     {
                         Genero = g.Key,
                         Peliculas = g.OrderBy(x => Guid.NewGuid()) // Orden aleatorio
-                                     .Take(25)
+                                     .Take(15)
                                      .ToList()
                     })
                     .ToList();
