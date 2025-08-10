@@ -104,7 +104,6 @@
                             <div class="col-md-4">
                                 <label>Estreno</label>
                                 <asp:TextBox ID="fechaEstreno" runat="server" CssClass="form-control" />
-                                <asp:RequiredFieldValidator ID="fechaEstreno1" runat="server" ControlToValidate="fechaEstreno" CssClass="text-danger" ValidationGroup="Formulario" />
                             </div>
 
                             <div class="col-md-6">
@@ -123,13 +122,14 @@
 
                             <div class="col-md-6">
                                 <label>Imagen Horizontal</label>
-                                <asp:TextBox ID="tbImagenH" runat="server" CssClass="form-control" oninput="document.getElementById('imgPoster').src = this.value;" />
+                                <asp:TextBox ID="tbImagenV" runat="server" CssClass="form-control" />
+                                
                                 <asp:RequiredFieldValidator ID="tbImagenHv" runat="server" ControlToValidate="tbImagenH" CssClass="text-danger" ValidationGroup="Formulario" />
                             </div>
 
                             <div class="col-md-6">
                                 <label>Imagen Vertical</label>
-                                <asp:TextBox ID="tbImagenV" runat="server" CssClass="form-control" />
+                                <asp:TextBox ID="tbImagenH" runat="server" CssClass="form-control" oninput="document.getElementById('imgPoster').src = this.value;" />
                                 <asp:RequiredFieldValidator ID="tbImagenVv" runat="server" ControlToValidate="tbImagenV" CssClass="text-danger" ValidationGroup="Formulario" />
                             </div>
                         </div>
@@ -138,8 +138,8 @@
                     <!-- Columna derecha: vista previa -->
                     <div class="col-md-5 text-center">
                         <label class="form-label">Vista previa de póster</label><br />
-                        <asp:Image ID="imgPoster" runat="server" ClientIDMode="Static" CssClass="img-thumbnail" Width="40%" />
                         <asp:Image ID="imgPosterH" runat="server" ClientIDMode="Static" CssClass="img-thumbnail" Width="40%" />
+                        <asp:Image ID="imgPoster" runat="server" ClientIDMode="Static" CssClass="img-thumbnail" Width="40%" />
                     </div>
                 </div>
 

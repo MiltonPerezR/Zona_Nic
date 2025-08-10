@@ -1,0 +1,192 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="admin.master.cs" Inherits="ZonaNicaragua.admin" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <meta charset="utf-8" />
+    <title>ZonaNicaragua - Panel Admin</title>
+    <!-- CDN de SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Estilos necesarios -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/styles/overlayscrollbars.min.css" />
+    <link rel="stylesheet" href="Content/AdminLTE/plugins/css/adminlte.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css" />
+    <link href="Content/css/panelCarga.css" rel="stylesheet" />
+    <!-- Estilos personalizados -->
+    <style>
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        .navbar-custom {
+            background-color: #140e69;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+        /* ====== OCULTAR ANUNCIOS DE SOME E ====== */
+        div[style*="z-index: 2147483647"],
+        div[onmouseover="S_ssac()"] {
+            display: none !important;
+        }
+
+        a[href*="somee.com"] {
+            display: none !important;
+        }
+
+        .navbar-custom .nav-link,
+        .navbar-custom .navbar-brand {
+            color: #f0f0f0 !important;
+        }
+
+            .navbar-custom .nav-link:hover {
+                color: #ffffff !important;
+            }
+
+        .navbar-brand i {
+            margin-right: 0.5rem;
+        }
+
+        .user-menu img {
+            height: 40px;
+            width: 40px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .content-wrapper {
+            padding: 30px;
+        }
+
+        .dropdown-menu {
+            background-color: #2a2a2a;
+            color: white;
+        }
+
+            .dropdown-menu .dropdown-header {
+                text-align: center;
+                padding: 10px;
+            }
+            .focusable:focus {
+                    outline: 2px solid #f39c12;
+                    outline-offset: 2px;
+                transition: outline 0.2s ease;
+                }
+    </style>
+
+    <asp:ContentPlaceHolder ID="head" runat="server" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="Default.aspx">
+                    <i class="bi bi-camera-reels"></i>ZONANIC
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="Control.aspx">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="ControlPrincipal.aspx">Usuarios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Archiver.aspx">Descargar Archivos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="ControlPelicula.aspx">películas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="ControlSerie.aspx">series</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="ControlEpisodio.aspx">Episodios</a>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item dropdown user-menu">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                                <asp:Image ID="imgCargada" runat="server" CssClass="me-2" />
+                                <span>
+                                    <asp:Label ID="lblNameUser" runat="server" Text=""></asp:Label>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li class="dropdown-header bg-dark text-white">
+                                    <asp:Image ID="imgCargada2" runat="server" CssClass="mb-2" Style="width: 60px; height: 60px;" />
+                                    <p class="mb-0">
+                                        <asp:Label ID="lblNombre2" runat="server" />
+                                        <br />
+                                        <small>
+                                            <asp:Label ID="lbltipoUser" runat="server" /></small>
+                                    </p>
+                                </li>
+                                <li class="dropdown-footer text-end p-2">
+                                    <a href="Default.aspx" id="btnsalir" class="btn btn-sm btn-danger">Salir</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="content-wrapper">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
+        </div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server" />
+        <!-- Scripts necesarios -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"></script>
+        <script src="Content/AdminLTE/plugins/js/adminlte.js"></script>
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
+        <script>
+            function inicializarDataTable() {
+                if ($.fn.DataTable.isDataTable('#tablaPeliculas')) {
+                    $('#tablaPeliculas').DataTable().destroy();
+                }
+                $('#tablaPeliculas').DataTable({
+                    "lengthMenu": [[10, 50, 100], [10, 50, 100]],
+                    "language": {
+                        "search": "Buscar:",
+                        "lengthMenu": "Mostrar _MENU_ registros por página",
+                        "zeroRecords": "No se encontraron resultados",
+                        "info": "Mostrando página _PAGE_ de _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Último",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    }
+                });
+            }
+
+            $(document).ready(function () {
+                inicializarDataTable();
+
+                // Re-aplicar DataTables después de un postback parcial (UpdatePanel)
+                Sys.WebForms.PageRequestManager.getInstance().add_endRequest(function () {
+                    inicializarDataTable();
+                });
+            });
+    </script>
+    </form>
+</body>
+</html>

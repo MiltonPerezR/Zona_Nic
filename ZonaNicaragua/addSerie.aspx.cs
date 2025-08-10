@@ -55,6 +55,8 @@ namespace ZonaNicaragua
                 {
                     TituloSerie = txttTitulo.Text,
                     SinopsisSerie = txtSinopsis.Text,
+                    FechaEstreno = estreno.Text,
+                    ClasificacionEdad = txtClasificacionEdad.Text,
                     IdTipoVideo = int.Parse(ddlTipoVideo.SelectedValue),
                     Genero = genero.Text,
                     Generos = generosss.Text,
@@ -101,6 +103,8 @@ namespace ZonaNicaragua
             tbImagenH.Text = "";
             genero.Text = "";
             generosss.Text = "";
+            estreno.Text = "";
+            txtClasificacionEdad.Text = "";
             ddlTipoVideo.ClearSelection();
         }
 
@@ -121,10 +125,28 @@ namespace ZonaNicaragua
                     txttTitulo.Text = datos["name"]?.ToString();
                     txtSinopsis.Text = datos["overview"]?.ToString();
 
+                    // Fecha de estreno
+                    string fechaEstreno = datos["first_air_date"]?.ToString();
+                    if (!string.IsNullOrEmpty(fechaEstreno))
+                    {
+                        DateTime fecha;
+                        if (DateTime.TryParse(fechaEstreno, out fecha))
+                        {
+                            estreno.Text = fecha.ToString("yyyy-MM-dd");
+                        }
+                        else
+                        {
+                            estreno.Text = "";
+                        }
+                    }
+
+                    // Extraer clasificación por edades
+                    string clasificacionEdad = ObtenerClasificacionEdad(datos);
+                    txtClasificacionEdad.Text = clasificacionEdad;
+
                     var generosAPI = datos["genres"];
                     if (generosAPI != null && generosAPI.HasValues)
                     {
-                        // Lista traducida y separada
                         var listaGeneros = new List<string>();
 
                         foreach (var g in generosAPI)
@@ -132,7 +154,7 @@ namespace ZonaNicaragua
                             var nombre = g["name"]?.ToString();
                             if (!string.IsNullOrWhiteSpace(nombre))
                             {
-                                var subGeneros = nombre.Split('&')  // separa Action & Adventure
+                                var subGeneros = nombre.Split('&')
                                                        .Select(s => s.Trim())
                                                        .Select(s => TraducirGenero(s));
 
@@ -140,16 +162,10 @@ namespace ZonaNicaragua
                             }
                         }
 
-                        // Eliminar duplicados
                         listaGeneros = listaGeneros.Distinct().ToList();
-
-                        // Mostrar todos
                         generosss.Text = string.Join(", ", listaGeneros);
-
-                        // Asignar el primer género como principal
                         genero.Text = listaGeneros.FirstOrDefault() ?? "Sin género";
 
-                        // Detectar tipo automáticamente
                         string tipoDetectado = "Serie";
                         var lower = listaGeneros.Select(g => g.ToLower()).ToList();
 
@@ -171,7 +187,7 @@ namespace ZonaNicaragua
                         }
                     }
 
-                    // Imagen vertical (poster)
+                    // Imagen vertical
                     string posterPath = datos["poster_path"]?.ToString();
                     if (!string.IsNullOrEmpty(posterPath))
                     {
@@ -180,7 +196,7 @@ namespace ZonaNicaragua
                         imgPoster.ImageUrl = posterUrl;
                     }
 
-                    // Imagen horizontal (backdrop)
+                    // Imagen horizontal
                     string backdropPath = datos["backdrop_path"]?.ToString();
                     if (!string.IsNullOrEmpty(backdropPath))
                     {
@@ -192,9 +208,55 @@ namespace ZonaNicaragua
             }
         }
 
+        private string ObtenerClasificacionEdad(JObject datos)
+        {
+            // Intentar obtener las clasificaciones de contenido
+            var ratings = datos["content_ratings"]?["results"];
+            if (ratings != null && ratings.HasValues)
+            {
+                // Buscar clasificación para España "ES"
+                var ratingES = ratings.FirstOrDefault(r => r["iso_3166_1"]?.ToString() == "ES");
+                if (ratingES != null)
+                    return TraducirClasificacion(ratingES["rating"]?.ToString());
+
+                // Si no existe España, obtener la primera clasificación válida
+                var primera = ratings.FirstOrDefault(r => !string.IsNullOrEmpty(r["rating"]?.ToString()));
+                if (primera != null)
+                    return TraducirClasificacion(primera["rating"]?.ToString());
+            }
+
+            return "Todos"; // valor por defecto si no encuentra nada
+        }
+
+        private string TraducirClasificacion(string rating)
+        {
+            // Mapear las clasificaciones TMDb a las que quieres mostrar
+            var map = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            {
+                {"TV-Y", "+0"},
+                {"TV-Y7", "+7"},
+                {"TV-G", "+0"},
+                {"TV-PG", "+7"},
+                {"TV-14", "+13"},
+                {"TV-MA", "+17"},
+                {"G", "+0"},
+                {"PG", "+7"},
+                {"PG-13", "+13"},
+                {"R", "+17"},
+                {"NC-17", "+18"},
+                {"NR", "Todos"},
+                {"Unrated", "Todos"}
+            };
+
+            if (string.IsNullOrEmpty(rating))
+                return "Todos";
+
+            return map.ContainsKey(rating) ? map[rating] : rating;
+        }
+
         private async Task<JObject> ObtenerInformacionSerie(string titulo)
         {
-            string apiKey = "1bc6db497c4e844d1abec56c8808a145"; // Reemplaza con tu API Key
+            string apiKey = "1bc6db497c4e844d1abec56c8808a145";
             string urlBusqueda = $"https://api.themoviedb.org/3/search/tv?api_key={apiKey}&language=es-ES&query={titulo}";
 
             using (HttpClient client = new HttpClient())
@@ -206,7 +268,7 @@ namespace ZonaNicaragua
                 if (resultados != null && resultados.HasValues)
                 {
                     var idSerie = resultados[0]["id"];
-                    string urlDetalles = $"https://api.themoviedb.org/3/tv/{idSerie}?api_key={apiKey}&language=es-ES";
+                    string urlDetalles = $"https://api.themoviedb.org/3/tv/{idSerie}?api_key={apiKey}&language=es-ES&append_to_response=content_ratings";
                     var detalle = await client.GetStringAsync(urlDetalles);
                     return JObject.Parse(detalle);
                 }
@@ -217,7 +279,6 @@ namespace ZonaNicaragua
 
         private string TraducirGenero(string genero)
         {
-            // Traducciones manuales de los géneros
             var traducciones = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 {"Action", "Acción"},

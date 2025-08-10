@@ -108,6 +108,7 @@ namespace ZonaNicaragua
             previewH.ImageUrl = imagenHS.UrlImagenHS;
             previewV.ImageUrl = imagenVS.UrlImagenVS;
             fechaEstreno.Text = series.FechaEstreno;
+            clasificacionEdad.Text = $"+{series.ClasificacionEdad}";
         }
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
@@ -122,6 +123,7 @@ namespace ZonaNicaragua
             s.Genero = genero.Text;
             s.Generos = generos.Text;
             s.FechaEstreno = fechaEstreno.Text;
+            s.ClasificacionEdad = clasificacionEdad.Text;
             Uow.SaveChanges();
 
             var addImagenV = Uow.M_IMAGENVS.FirstOrDefault(v => v.IdSerieV == lb);

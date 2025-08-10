@@ -114,15 +114,6 @@ namespace ZonaNicaragua
         protected global::System.Web.UI.WebControls.TextBox fechaEstreno;
 
         /// <summary>
-        /// Control fechaEstreno1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator fechaEstreno1;
-
-        /// <summary>
         /// Control genero.
         /// </summary>
         /// <remarks>
@@ -159,13 +150,13 @@ namespace ZonaNicaragua
         protected global::System.Web.UI.WebControls.RequiredFieldValidator tburPeliculav;
 
         /// <summary>
-        /// Control tbImagenH.
+        /// Control tbImagenV.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbImagenH;
+        protected global::System.Web.UI.WebControls.TextBox tbImagenV;
 
         /// <summary>
         /// Control tbImagenHv.
@@ -177,13 +168,13 @@ namespace ZonaNicaragua
         protected global::System.Web.UI.WebControls.RequiredFieldValidator tbImagenHv;
 
         /// <summary>
-        /// Control tbImagenV.
+        /// Control tbImagenH.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbImagenV;
+        protected global::System.Web.UI.WebControls.TextBox tbImagenH;
 
         /// <summary>
         /// Control tbImagenVv.
@@ -195,15 +186,6 @@ namespace ZonaNicaragua
         protected global::System.Web.UI.WebControls.RequiredFieldValidator tbImagenVv;
 
         /// <summary>
-        /// Control imgPoster.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgPoster;
-
-        /// <summary>
         /// Control imgPosterH.
         /// </summary>
         /// <remarks>
@@ -211,6 +193,15 @@ namespace ZonaNicaragua
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgPosterH;
+
+        /// <summary>
+        /// Control imgPoster.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgPoster;
 
         /// <summary>
         /// Control btnCerrar.

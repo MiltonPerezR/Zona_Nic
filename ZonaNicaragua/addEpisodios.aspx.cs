@@ -92,8 +92,6 @@ namespace ZonaNicaragua
         {
             txttTitulo.Text = "";
             txtDescripcion.Text = "";
-            lblnumeroEpisodio.Text = "";
-            tbNumeroTemporada.Text = "";
             tbMiniatura.Text = "";
             lblUrl.Text = "";
             tnTiempoEpi.Text = "";

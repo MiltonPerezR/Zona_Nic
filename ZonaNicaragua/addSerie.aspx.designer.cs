@@ -42,6 +42,15 @@ namespace ZonaNicaragua
         protected global::System.Web.UI.WebControls.TextBox txtSinopsis;
 
         /// <summary>
+        /// Control txtClasificacionEdad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtClasificacionEdad;
+
+        /// <summary>
         /// Control genero.
         /// </summary>
         /// <remarks>
@@ -103,6 +112,15 @@ namespace ZonaNicaragua
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image imgPosterH;
+
+        /// <summary>
+        /// Control estreno.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox estreno;
 
         /// <summary>
         /// Control btnCerrar.

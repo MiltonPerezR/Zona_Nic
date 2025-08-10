@@ -395,6 +395,6 @@ C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\bin\es\System.Web
 C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\bin\es\Microsoft.AspNet.FriendlyUrls.resources.dll
 C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\obj\Release\ZonaNicaragua.csproj.AssemblyReference.cache
 C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\obj\Release\ZonaNicaragua.csproj.CoreCompileInputs.cache
-C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\obj\Release\ZonaNica.F83A947F.Up2Date
 C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\obj\Release\ZonaNicaragua.dll
 C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\obj\Release\ZonaNicaragua.pdb
+C:\Users\mirut\OneDrive\Escritorio\ZonaNicaragua\ZonaNicaragua\obj\Release\ZonaNicaragua.csproj.CopyComplete

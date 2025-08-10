@@ -18,6 +18,7 @@ namespace ZonaNicaragua.Models
         public string TituloPelicula { get; set; }
         public string FechaEstreno { get; set; }
         public string Calidad { get; set; }
+        public string ClasificacionEdad { get; set; }
         public string SinopsisPelicula { get; set; }
         public string TiempoPelicula { get; set; }
 

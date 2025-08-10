@@ -17,11 +17,11 @@ namespace ZonaNicaragua
         {
             if (!Page.IsPostBack)
             {
-                string userAgent = Request.UserAgent.ToLower();
-                if (userAgent.Contains("android") || userAgent.Contains("smarttv") || userAgent.Contains("googletv") || userAgent.Contains("smart-tv"))
-                {
-                    btn2.Visible = false;
-                }
+                //string userAgent = Request.UserAgent.ToLower();
+                //if (userAgent.Contains("android") || userAgent.Contains("smarttv") || userAgent.Contains("googletv") || userAgent.Contains("smart-tv"))
+                //{
+                //    btn2.Visible = false;
+                //}
                 if (Request.QueryString["Id"] != null)
                 {
                     sID = Request.QueryString["Id"].ToString();

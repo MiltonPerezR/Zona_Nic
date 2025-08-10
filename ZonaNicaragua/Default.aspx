@@ -46,21 +46,20 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
 
-            <!-- Timer para refrescar el banner cada 5 minutos -->
-            <asp:Timer ID="timerBanner" runat="server" Interval="15000" OnTick="timerBanner_Tick" />
+            <asp:Timer ID="timerBanner" runat="server" Interval="100000" OnTick="timerBanner_Tick" />
 
-            <div class="genero-titulo">Estrenos</div>
+            <div id="estre" runat="server" class="genero-titulo">Estrenos</div>
             <div class="carousel-suggestions mt-3">
                 <asp:Repeater ID="rptSugerencias" runat="server" OnItemCommand="rptSugerencias_ItemCommand">
                     <ItemTemplate>
                         <div class="suggestion-card focusable" tabindex="0">
                             <div class="ribbon-year"><%#Eval("FechaEstreno") %></div>
-                            <asp:LinkButton ID="lnkSugerencia" runat="server" CommandName="VerPelicula" CommandArgument='<%# Eval("Id") %>'
+                            <asp:LinkButton ID="lnkSugerencia" runat="server" CommandName="VerPelicula" CommandArgument='<%# Eval("Id") + "|" + Eval("Tipo") %>'
                                 CssClass="text-decoration-none text-white" Style="display: block;">
                     <img src='<%# Eval("imagen") %>' alt='<%# Eval("Titulo") %>' />
                     <div class="p-2">
                         <div class="d-flex align-items-center gap-2 small mb-1 text-light">
-                            <span class="badge bg-secondary">7+</span>
+                            <span class="badge bg-secondary"><%#Eval("ClasificacionEdad") %></span>
                             <span><%# Eval("Calidad") %></span>
                             <span><i class="bi bi-earbuds"></i></span>
                         </div>
@@ -83,7 +82,7 @@
                                 <asp:LinkButton runat="server" CssClass="pelicula-item"
                                     CommandName="VerPelicula"
                                     CommandArgument='<%# Eval("Peliculas.IdPelicula") + "|" + Eval("Tipo") %>'>
-                                    <img src='<%# Eval("UrlImagenV") %>' alt='<%# Eval("Peliculas.TituloPelicula") %>' />
+                                    <img loading="lazy" src='<%# Eval("UrlImagenV") %>' alt='<%# Eval("Peliculas.TituloPelicula") %>' />
                                     <%--<div class="info-overlay">
                                         <h4><%# Eval("Peliculas.TituloPelicula") %></h4>
                                         <div class="info-details">

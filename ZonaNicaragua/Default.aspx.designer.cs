@@ -96,6 +96,15 @@ namespace ZonaNicaragua
         protected global::System.Web.UI.Timer timerBanner;
 
         /// <summary>
+        /// Control estre.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl estre;
+
+        /// <summary>
         /// Control rptSugerencias.
         /// </summary>
         /// <remarks>

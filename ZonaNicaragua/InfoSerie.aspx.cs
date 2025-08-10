@@ -46,17 +46,19 @@ namespace ZonaNicaragua
         {
             int i = int.Parse(sID.ToString());
             var episodios = Uow.Episodios
-    .Where(e => e.IdSerieE == i && e.NumeroTemporada == NumeroTemporada)
-    .Select(e => new
-    {
-        e.IdEpisodio,
-        ImagenUrl = e.Miniatura,
-        Numero = e.NumeroEpisodio,
-        Titulo = e.TituloEpisodio,
-        e.Descripcion,
-        Duracion = e.TiempoEpisodio
-    })
-    .ToList();
+                .Where(e => e.IdSerieE == i && e.NumeroTemporada == NumeroTemporada)
+                .OrderBy(e => e.NumeroEpisodio)
+                .Select(e => new
+                {
+                    e.IdEpisodio,
+                    ImagenUrl = e.Miniatura,
+                    Numero = e.NumeroEpisodio,
+                    Titulo = e.TituloEpisodio,
+                    e.Descripcion,
+                    Duracion = e.TiempoEpisodio
+                })
+                
+                .ToList();
 
 
             rptEpisodios.DataSource = episodios;
@@ -136,16 +138,9 @@ namespace ZonaNicaragua
             var epi = Uow.Series.FirstOrDefault(e1 => e1.IdSerie == idSerie);
             var episodio = Uow.Episodios.FirstOrDefault(ee1 => ee1.IdEpisodio == epi.IdEpisodioQuedo);
 
-            string userAgent = Request.UserAgent.ToLower();
-            if (userAgent.Contains("android") || userAgent.Contains("smarttv") || userAgent.Contains("googletv") || userAgent.Contains("smart-tv"))
-            {
-                Response.Redirect(episodio.UrlVideo);
-            }
-            else
-            {
-                
-                Response.Redirect($"Reproducir.aspx?id={epi.IdEpisodioQuedo}&tipo=2");
-            }
+
+             Response.Redirect(episodio.UrlVideo);
+
         }
 
         protected void btnLista_Click(object sender, EventArgs e)
@@ -153,5 +148,14 @@ namespace ZonaNicaragua
 
         }
 
+        protected void btnver2_Click(object sender, EventArgs e)
+        {
+            int idSerie = int.Parse(sID.ToString());
+            var epi = Uow.Series.FirstOrDefault(e1 => e1.IdSerie == idSerie);
+            var episodio = Uow.Episodios.FirstOrDefault(ee1 => ee1.IdEpisodio == epi.IdEpisodioQuedo);
+
+            Response.Redirect($"Reproducir.aspx?id={epi.IdEpisodioQuedo}&tipo=2");
+
+        }
     }
 }

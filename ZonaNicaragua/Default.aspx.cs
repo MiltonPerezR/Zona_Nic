@@ -32,13 +32,13 @@ namespace ZonaNicaragua
             // Consulta de películas
             var peliculas = Uow.Peliculas
                 .Include(p => p.ImagenV)
-                .ToList() // Aquí lo traes a memoria para poder usar C# puro
                 .Select(p => new
                 {
                     Id = p.IdPelicula,
                     Titulo = p.TituloPelicula,
                     Imagen = p.ImagenV.Select(iv => iv.UrlImagenV).FirstOrDefault() ?? "/imagenes/no-disponible.jpg",
-                    FechaEstreno = DateTime.TryParse(p.FechaEstreno, out var fecha) ? fecha.Year.ToString() : "",
+                    FechaEstreno = p.FechaEstreno,
+                    ClasificacionEdad = p.ClasificacionEdad,
                     Calidad = p.Calidad,
                     Genero = p.Genero,
                     Tipo = "Pelicula"
@@ -57,6 +57,7 @@ namespace ZonaNicaragua
                     Titulo = s.TituloSerie,
                     Imagen = s.M_IMAGENVS.Select(iv => iv.UrlImagenVS).FirstOrDefault() ?? "/imagenes/no-disponible.jpg",
                     FechaEstreno = s.FechaEstreno,
+                    ClasificacionEdad = s.ClasificacionEdad,
                     Calidad = "HD",
                     Genero = s.Genero,
                     Tipo = "Serie"
@@ -70,22 +71,39 @@ namespace ZonaNicaragua
             var contenidoRelacionado = peliculas
                 .Concat(series)
                 .OrderByDescending(x => x.Id)
-                .Take(10)
+                //.Take(10)
                 .OrderBy(x => Guid.NewGuid())
                 .ToList();
 
-            rptSugerencias.DataSource = contenidoRelacionado;
-            rptSugerencias.DataBind();
+            if (contenidoRelacionado != null)
+            {
+
+                rptSugerencias.DataSource = contenidoRelacionado;
+                rptSugerencias.DataBind();
+            }
+            else
+            {
+                estre.Visible = false;
+                rptSugerencias.Visible = false;
+            }
         }
 
         protected void rptSugerencias_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "VerPelicula")
             {
-                string idPelicula = e.CommandArgument.ToString();
+                string[] argumentos = e.CommandArgument.ToString().Split('|');
+                int id = int.Parse(argumentos[0]);
+                string tipo = argumentos[1]; // "Pelicula" o "Serie"
 
-                // Aquí puedes redirigir a la página de esa película
-                Response.Redirect("InfoPelicula.aspx?Id=" + idPelicula);
+                if (tipo == "Pelicula")
+                {
+                    Response.Redirect("InfoPelicula.aspx?id=" + id);
+                }
+                else if (tipo == "Serie")
+                {
+                    Response.Redirect("InfoSerie.aspx?id=" + id);
+                }
             }
         }
         private void CargarPeliculasPorGeneros()

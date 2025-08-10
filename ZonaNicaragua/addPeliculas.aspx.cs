@@ -44,14 +44,15 @@ namespace ZonaNicaragua
                         Genero = genero.Text,
                         Generos = generosM.Text,
                         Calidad = Calidad.Text,
-                        FechaEstreno = fechaEstreno1.Text,
+                        FechaEstreno = fechaEstreno.Text,
+                        ClasificacionEdad = txtClasificacionEdad.Text,
                     };
                     Uow.Peliculas.Add(addPelicula);
                     Uow.SaveChanges();
 
                     var addImagenV = new ImagenV
                     {
-                        UrlImagenV = tbImagenV.Text,
+                        UrlImagenV = tbImagenH.Text,
                         EstadoImagenV = true,
                         IdPeliculaV = addPelicula.IdPelicula
                     };
@@ -60,7 +61,7 @@ namespace ZonaNicaragua
 
                     var addImagenH = new M_IMAGENH
                     {
-                        UrlImagenH = tbImagenH.Text,
+                        UrlImagenH = tbImagenV.Text,
                         EstadoImagenH = true,
                         IdPeliculaH = addPelicula.IdPelicula
                     };
@@ -132,8 +133,8 @@ namespace ZonaNicaragua
                     if (!string.IsNullOrEmpty(posterPath))
                     {
                         string posterUrl = $"https://image.tmdb.org/t/p/w500{posterPath}";
-                        imgPoster.ImageUrl = posterUrl;
-                        tbImagenV.Text = posterUrl;
+                        tbImagenH.Text = posterUrl;
+                        imgPosterH.ImageUrl = posterUrl;
                     }
 
                     // Imagen horizontal (backdrop)
@@ -141,8 +142,8 @@ namespace ZonaNicaragua
                     if (!string.IsNullOrEmpty(backdropPath))
                     {
                         string backdropUrl = $"https://image.tmdb.org/t/p/w780{backdropPath}";
-                        tbImagenH.Text = backdropUrl;
-                        imgPosterH.ImageUrl = backdropUrl;
+                        imgPoster.ImageUrl = backdropUrl;
+                        tbImagenV.Text = backdropUrl;
                     }
 
                     // Duración
