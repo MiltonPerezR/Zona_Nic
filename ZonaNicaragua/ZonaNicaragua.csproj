@@ -254,6 +254,7 @@
     <Content Include="Control.aspx" />
     <Content Include="ControlSerie.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="Embe.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\logoNetflix.png" />
@@ -419,6 +420,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Embe.aspx.cs">
+      <DependentUpon>Embe.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Embe.aspx.designer.cs">
+      <DependentUpon>Embe.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

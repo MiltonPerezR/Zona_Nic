@@ -96,6 +96,15 @@ namespace ZonaNicaragua
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl estre;
 
         /// <summary>
+        /// Control btnl.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnl;
+
+        /// <summary>
         /// Control rptSugerencias.
         /// </summary>
         /// <remarks>
@@ -103,6 +112,15 @@ namespace ZonaNicaragua
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptSugerencias;
+
+        /// <summary>
+        /// Control btnr.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton btnr;
 
         /// <summary>
         /// Control rptGeneros.

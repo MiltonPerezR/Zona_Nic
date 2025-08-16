@@ -226,7 +226,7 @@
                     <div class="action-buttons">
                         <asp:Button ID="btnVerAhora" runat="server" CssClass="btn-disney focusable" Text="Reproducir" OnClick="btnVerAhora_Click" TabIndex="0" />
                         <asp:Button ID="btnver2" runat="server" CssClass="btn-disney focusable" Text="Reproducir 2" OnClick="btnver2_Click" TabIndex="0" />
-                        <asp:Button ID="btnLista" runat="server" CssClass="btn-disney-outline focusable" Text="Mi Lista" OnClick="btnLista_Click" TabIndex="0" />
+                        <asp:Button Visible="false" ID="btnLista" runat="server" CssClass="btn-disney-outline focusable" Text="Mi Lista" OnClick="btnLista_Click" TabIndex="0" />
                     </div>
                 </div>
             </div>

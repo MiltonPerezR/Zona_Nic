@@ -1,11 +1,13 @@
-﻿using System;
+﻿using iTextSharp.text;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Security.Policy;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ZonaNicaragua.Models;
-using System.Data.Entity;
 
 namespace ZonaNicaragua
 {
@@ -18,6 +20,24 @@ namespace ZonaNicaragua
             if (!Page.IsPostBack)
             {
                 Uow = new AppDbContext();
+
+                string userAgent = Request.UserAgent.ToLower();
+                if (userAgent.Contains("android") || userAgent.Contains("smarttv") || userAgent.Contains("googletv") || userAgent.Contains("smart-tv"))
+                {
+                    btnl.Visible = false; // Ocultar botón para dispositivos móviles
+                    btnr.Visible = false; // Ocultar botón para dispositivos móviles
+
+                }
+                else if (userAgent.Contains("iphone") || userAgent.Contains("ipad") || userAgent.Contains("ipod"))
+                {
+                    btnl.Visible = false; // Ocultar botón para iOS
+                    btnr.Visible = false; // Ocultar botón para iOS
+                }
+                else
+                {
+                    btnl.Visible = true; // Mostrar botón para escritorio
+                    btnr.Visible = true; // Mostrar botón para escritorio
+                }
                 CargarBannerPrincipal();
                 CargarPeliculasPorGeneros();
                 peliculasRelacionadas();

@@ -35,9 +35,9 @@
             scrollbar-width: none;
         }
 
-        .carousel-suggestions::-webkit-scrollbar {
-            display: none;
-        }
+            .carousel-suggestions::-webkit-scrollbar {
+                display: none;
+            }
 
         .suggestion-card {
             flex: 0 0 auto;
@@ -48,31 +48,31 @@
             transition: transform 0.3s;
         }
 
-        .suggestion-card img {
-            width: 100%;
-            height: 210px;
-            object-fit: cover;
-        }
+            .suggestion-card img {
+                width: 100%;
+                height: 210px;
+                object-fit: cover;
+            }
 
-        .suggestion-card .p-2 {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 0.5rem;
-        }
+            .suggestion-card .p-2 {
+                background: rgba(0, 0, 0, 0.6);
+                padding: 0.5rem;
+            }
 
-        .suggestion-card h6,
-        .suggestion-card span {
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-        }
+            .suggestion-card h6,
+            .suggestion-card span {
+                text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+            }
 
         .nav-tabs .nav-link {
             color: white;
         }
 
-        .nav-tabs .nav-link.active {
-            background-color: transparent;
-            border-bottom: 2px solid red;
-            font-weight: bold;
-        }
+            .nav-tabs .nav-link.active {
+                background-color: transparent;
+                border-bottom: 2px solid red;
+                font-weight: bold;
+            }
 
         /* 👉 Estilos para navegación con control remoto */
         .focusable:focus {
@@ -94,14 +94,14 @@
     <!-- Botones -->
     <div class="container mt-4 px-4">
         <div class="d-flex flex-wrap gap-2">
-            <asp:LinkButton runat="server" CssClass="btn btn-light focusable" ID="btnPlay" OnClick="btnPlay_Click" TabIndex="0">
-                <i class="bi bi-play-fill me-1"></i> Ver ahora
+            <asp:LinkButton runat="server" CssClass="btn btn-light focusable" ID="btn" OnClick="btn_Click" TabIndex="0">
+                <i class="bi bi-play-fill me-1"></i>Ver ahora 1
             </asp:LinkButton>
             <asp:LinkButton runat="server" CssClass="btn btn-light focusable" ID="btn2" OnClick="btn2_Click" TabIndex="0">
-                <i class="bi bi-play-fill me-1"></i> Ver ahora 2
+                <i class="bi bi-play-fill me-1"></i>Ver ahora 2
             </asp:LinkButton>
-            <asp:LinkButton runat="server" CssClass="btn btn-outline-light focusable" ID="btnAgregar" TabIndex="0">
-                <i class="bi bi-plus-lg"></i> Agregar
+            <asp:LinkButton Visible="false" runat="server" CssClass="btn btn-outline-light focusable" ID="btnAgregar" TabIndex="0">
+                <i class="bi bi-plus-lg"></i>Agregar
             </asp:LinkButton>
         </div>
     </div>
@@ -136,7 +136,7 @@
         <div class="tab-pane fade show active" id="sugerencias" role="tabpanel">
             <div class="carousel-suggestions mt-3">
                 <asp:Repeater ID="rptSugerencias" runat="server" OnItemCommand="rptSugerencias_ItemCommand">
-                    <ItemTemplate>
+                    <itemtemplate>
                         <div class="suggestion-card focusable" tabindex="0">
                             <asp:LinkButton ID="lnkSugerencia" runat="server" CommandName="VerPelicula" CommandArgument='<%# Eval("Id") %>'
                                 CssClass="text-decoration-none text-white" Style="display: block;">
@@ -152,7 +152,7 @@
                                 </div>
                             </asp:LinkButton>
                         </div>
-                    </ItemTemplate>
+                    </itemtemplate>
                 </asp:Repeater>
             </div>
         </div>

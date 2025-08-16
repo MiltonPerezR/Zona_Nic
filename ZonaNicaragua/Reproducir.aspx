@@ -8,7 +8,6 @@
     <title>Reproductor de Película</title>
     <script src="/Scripts/playerjs(1).js"></script>
     <style>
-        /* Tu CSS original sin cambios */
         * {
             margin: 0;
             padding: 0;
@@ -30,27 +29,9 @@
             height: 100vh;
             position: relative;
             background-color: black;
-            top: -10vh;
+            /*top: -10vh;*/
         }
-        /* Botones accesibles con control remoto */
-        .control-remote {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 10000;
-            display: flex;
-            gap: 10px;
-        }
-
-            .control-remote button {
-                padding: 10px 20px;
-                font-size: 16px;
-                background-color: #f39c12;
-                color: white;
-                border: none;
-                border-radius: 8px;
-                cursor: pointer;
-            }
+        
 
         .focusable:focus {
             outline: 2px solid #fff;

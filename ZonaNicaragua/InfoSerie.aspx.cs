@@ -112,22 +112,20 @@ namespace ZonaNicaragua
                 string userAgent = Request.UserAgent.ToLower();
                 if (Request.Browser.IsMobileDevice)
                 {
-                    Response.Redirect(epi.UrlVideo);
+                    Response.Redirect($"Embe.aspx?Id={epi.IdEpisodio}&tipo=2");
 
                 }
                 if (userAgent.Contains("android"))
                 {
-                    Response.Redirect(epi.UrlVideo);
+                    Response.Redirect($"Embe.aspx?Id={epi.IdEpisodio}&tipo=2");
                 }
                 if (userAgent.Contains("smarttv") || userAgent.Contains("googletv") || userAgent.Contains("smart-tv"))
                 {
-                    //Response.Redirect($"Reproducir.aspx?id={idEpisodio}&tipo=2");
-                    Response.Redirect(epi.UrlVideo);
+                    Response.Redirect($"Embe.aspx?Id={epi.IdEpisodio}&tipo=2");
                 }
                 else
                 {
-                    Response.Redirect(epi.UrlVideo);
-                    //Response.Redirect($"Reproducir.aspx?id={idEpisodio}&tipo=2");
+                    Response.Redirect($"Embe.aspx?Id={epi.IdEpisodio}&tipo=2");
                 }
             }
         }
@@ -138,8 +136,7 @@ namespace ZonaNicaragua
             var epi = Uow.Series.FirstOrDefault(e1 => e1.IdSerie == idSerie);
             var episodio = Uow.Episodios.FirstOrDefault(ee1 => ee1.IdEpisodio == epi.IdEpisodioQuedo);
 
-
-             Response.Redirect(episodio.UrlVideo);
+            Response.Redirect($"Embe.aspx?Id={episodio.IdEpisodio}&tipo=2");
 
         }
 

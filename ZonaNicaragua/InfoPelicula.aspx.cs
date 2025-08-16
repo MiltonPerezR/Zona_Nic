@@ -123,16 +123,14 @@ namespace ZonaNicaragua
                 Response.Redirect("InfoPelicula.aspx?Id=" + idPelicula);
             }
         }
-        protected void btnPlay_Click(object sender, EventArgs e)
-        {
-            int idPelicula = int.Parse(sID.ToString());
-            var pelicula = Uow.Peliculas.FirstOrDefault(p => p.IdPelicula == idPelicula);
-            Response.Redirect(pelicula.UrlPelicula);
-        }
         protected void btn2_Click(object sender, EventArgs e)
         {
 
             Response.Redirect($"Reproducir.aspx?Id={sID}&tipo=1");
+        }
+        protected void btn_Click(object sender, EventArgs e)
+        {
+            Response.Redirect($"Embe.aspx?Id={sID}&tipo=1");
         }
     }
 }

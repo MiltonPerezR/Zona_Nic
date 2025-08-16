@@ -91,7 +91,7 @@
     <!-- Estrenos -->
     <div id="estre" runat="server" class="genero-titulo mt-3">Estrenos</div>
     <div class="carousel-wrapper">
-        <button type="button" class="carousel-btn left" onclick="scrollCarousel('carousel-suggestions', -600)">&#10094;</button>
+        <button runat="server" id="btnl" type="button" class="carousel-btn left" onclick="scrollCarousel('carousel-suggestions', -600)">&#10094;</button>
         <div class="carousel-suggestions mt-3">
             <asp:Repeater ID="rptSugerencias" runat="server" OnItemCommand="rptSugerencias_ItemCommand">
                 <ItemTemplate>
@@ -113,7 +113,7 @@
                 </ItemTemplate>
             </asp:Repeater>
         </div>
-        <button type="button" class="carousel-btn right" onclick="scrollCarousel('carousel-suggestions', 600)">&#10095;</button>
+        <button runat="server" id="btnr" type="button" class="carousel-btn right" onclick="scrollCarousel('carousel-suggestions', 600)">&#10095;</button>
     </div>
 
     <!-- Películas por género -->
